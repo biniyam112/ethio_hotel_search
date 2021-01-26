@@ -1,6 +1,9 @@
-const { urlencoded } = require('express')
 const express = require('express')
+
 const adminRoute = require('./routes/admin')
+const featureRoute = require('./routes/feature')
+const roomRoute = require('./routes/room')
+
 const mongoose = require('mongoose')
 
 const app = express()
@@ -24,15 +27,14 @@ db.on('error', err => {
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 
-
-// app.get('*', (req, res, next) => {
-//     res.status(200).json({msg:'First response is sent'})
-// })
 app.use('/admins', adminRoute)
+app.use('/features', featureRoute)
+app.use('/rooms', roomRoute)
+
 app.use((req, res) => {
     res.status(404).json({
         error : true,
-        error : 'Page Not Found!'
+        message : 'Page Not Found!'
     })
 })
 

@@ -128,7 +128,7 @@ exports.delete_admin = (req, res) => {
                         res.status(200).json({error : false, message : `Deleted Admin with ID ${id}`})
                     }
                     else{
-                        res.status(200).json({error : false, message : `There is no Admin with ID of ${id}`})
+                        res.status(200).json({error : true, message : `There is no Admin with ID of ${id}`})
                     }
                 
                 }))
