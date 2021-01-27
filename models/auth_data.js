@@ -5,7 +5,7 @@ const authSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         required : true
     },
-    username : {
+    email : {
         type : String,
         required : true,
         unique : true
@@ -18,11 +18,6 @@ const authSchema = new mongoose.Schema({
     type : {
         type : String,
         required : true
-    },
-    manages : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'Hotel',
-        default : null,
     }
 })
 

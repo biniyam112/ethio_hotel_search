@@ -64,14 +64,14 @@ exports.admin_by_id = (req, res) => {
 exports.create_admin = (req, res) => {
 
     //TODO use bcrypt to hash password
-    const {username, password} = req.body
-    if(username && password) {
+    const {email, password} = req.body
+    if(email && password) {
         //check if the phone number is taken
-        Auth.find({username : username}).exec()
+        Auth.find({email : email}).exec()
         .then(admin => {
             if(admin.length >= 1) {
                 // console.log(admin)
-                res.status(400).json({error :true , message : 'Username already registered'})
+                res.status(400).json({error :true , message : 'Email already registered'})
             }
             else{
                 if(password.length < 8) {
@@ -85,7 +85,7 @@ exports.create_admin = (req, res) => {
                         else {
                             let newAdmin = new Auth({
                                 _id : new mongoose.Types.ObjectId(),
-                                username,
+                                email,
                                 password : hashed,
                                 type : AuthTypes.ADMIN
                             })
@@ -151,6 +151,7 @@ exports.delete_admin = (req, res) => {
 // @ Faillure Status code = 400
 // @Request = PATCH
 exports.update_admin_by_id = (req, res) => {
+    //maybe sending email will be required
     const {password, confirmPassword} = req.body
     let id = req.params.admin_id
 
@@ -196,6 +197,8 @@ exports.update_admin_by_id = (req, res) => {
     
 }
 
+//TODO maybe forget password request will be saved in here
+
 // @Purpose = Authenticate the user
 // @Previlage = No
 // @Required fields =  username, password
@@ -204,9 +207,9 @@ exports.update_admin_by_id = (req, res) => {
 // @ Faillure Status code = 400
 // @Request = POST
 exports.login_admin = (req, res) => {
-    const {username, password} = req.body
-    if(username && password) {
-        Auth.find({username}).exec()
+    const {email, password} = req.body
+    if(email && password) {
+        Auth.find({email}).exec()
             .then(admins => {
                 if(admins.length > 0) {
                     bcrypt.compare(password,admins[0].password,(err, result) => {
@@ -215,11 +218,12 @@ exports.login_admin = (req, res) => {
                         }
                         if(result) {
                             let token = jwt.sign({
-                                username : admins[0].phoneNo, 
+                                id : admins[0]._id,
+                                email : admins[0].email, 
                                 type : admins[0].type
                             }, 'PLEASE_CHANGE_IT_LATER')
                             //instead of passing the token as a response, just put it in cookie
-                            res.status(200).json({error : false, success : true, info : {id : admins[0]._id, username : admins[0].username, type : admins[0].type}, token})
+                            res.status(200).json({error : false, success : true, info : {id : admins[0]._id, email : admins[0].email, type : admins[0].type}, token})
                         }
                         else {
                             res.status(401).json({error : true, message : 'Auth Failed!', success:false})

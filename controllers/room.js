@@ -111,9 +111,8 @@ exports.delete_room = (req, res) => {
 }
 
 exports.filter_upto_price = (req, res) => {
-    //BIG CAUSION => STRINGIFY THE FEATURES ARRAY BEFORE SENDING TO THE API
-    const {upto, numberOfBedrooms, features} = req.query
-    console.log(typeof(JSON.parse(features)))
+    const {upto, numberOfBedrooms} = req.query
+
     Room.find({pricePerNight : {$lte : upto}, numberOfBedrooms : {$eq : numberOfBedrooms}}).
     populate('features').
     exec().

@@ -11,5 +11,4 @@ router.get('/:room_id',roomController.room_by_id)
 router.post('/', roomController.create_room)
 router.delete('/:room_id', roomController.delete_room)
 
-
 module.exports = router
