@@ -3,6 +3,8 @@ const express = require('express')
 const adminRoute = require('./routes/admin')
 const featureRoute = require('./routes/feature')
 const roomRoute = require('./routes/room')
+const bookingRoute = require('./routes/booking')
+const authRouter = require('./routes/auth')
 
 const mongoose = require('mongoose')
 
@@ -22,14 +24,14 @@ db.on('error', err => {
     console.log(err)  
 })
 
-
-
 app.use(express.urlencoded({extended : false}))
 app.use(express.json())
 
 app.use('/admins', adminRoute)
 app.use('/features', featureRoute)
 app.use('/rooms', roomRoute)
+app.use('/bookings', bookingRoute)
+app.use('/auth', authRouter)
 
 app.use((req, res) => {
     res.status(404).json({

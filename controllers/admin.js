@@ -1,4 +1,4 @@
-const Auth = require('../models/auth_data')
+const Auth = require('../models/auth')
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')

@@ -8,6 +8,7 @@ router.get('/:admin_id',AuthMiddlewares.super_admin_logged_in, adminController.a
 router.post('/',AuthMiddlewares.super_admin_logged_in, adminController.create_admin) //superadmin middlware is needed
 router.delete('/:admin_id',AuthMiddlewares.super_admin_logged_in, adminController.delete_admin) //superadmin middlware must be added
 router.patch('/:admin_id', adminController.update_admin_by_id) //logged in admin middleware must be added
+//admin creates hotel
 //TODO add one route for forgot password
-router.post('/auth', adminController.login_admin)
+// router.post('/auth', adminController.login_admin)
 module.exports = router

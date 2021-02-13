@@ -53,7 +53,7 @@ exports.room_by_id = (req, res) => {
 
 // @Purpose = Creating Room
 // @Previlage = *
-// @Required fields =  username, password
+// @Required fields =  numberOfBedrooms, description, count, pricePerNight
 // @Optional params = SuperAdmin
 // @ Success status code = 201
 // @ Faillure Status code = 400
@@ -110,7 +110,7 @@ exports.delete_room = (req, res) => {
     }
 }
 
-exports.filter_upto_price = (req, res) => {
+exports.filter_rooms = (req, res) => {
     const {upto, numberOfBedrooms} = req.query
 
     Room.find({pricePerNight : {$lte : upto}, numberOfBedrooms : {$eq : numberOfBedrooms}}).

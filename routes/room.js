@@ -4,7 +4,7 @@ const router = express.Router()
 const roomController = require('../controllers/room')
 
 router.get('/', roomController.rooms_all)
-router.get('/filter', roomController.filter_upto_price)
+router.get('/filter', roomController.filter_rooms)
 router.get('/:room_id',roomController.room_by_id)
 
 //List rooms of a specific Hotel
