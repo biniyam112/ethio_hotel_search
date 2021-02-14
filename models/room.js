@@ -14,15 +14,6 @@ const roomsSchema = new mongoose.Schema({
         type : Number,
         required : true
     },
-    // checkIn : {
-    //     type : Date,
-    //     default : Date.now
-    // },
-    // checkOut : {
-    //     type : Date,
-    //     default : Date.now
-    // },
-    //add the checkin and checkout dates inside of booking section it is where they reside!
     numberOfBedrooms : {
         type : Number,
         required : true,
@@ -44,7 +35,11 @@ const roomsSchema = new mongoose.Schema({
         default : 0,
         min : 0,
         max : 99
-    }
+    },
+    hotel: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      }
 })
 
 const Room = module.exports = mongoose.model('Room', roomsSchema)

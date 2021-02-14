@@ -63,7 +63,6 @@ exports.admin_by_id = (req, res) => {
 // @Request = POST
 exports.create_admin = (req, res) => {
 
-    //TODO use bcrypt to hash password
     const {email, password} = req.body
     if(email && password) {
         //check if the phone number is taken
@@ -197,7 +196,6 @@ exports.update_admin_by_id = (req, res) => {
     
 }
 
-//TODO maybe forget password request will be saved in here
 
 // @Purpose = Authenticate the user
 // @Previlage = No
@@ -207,6 +205,7 @@ exports.update_admin_by_id = (req, res) => {
 // @ Faillure Status code = 400
 // @Request = POST
 exports.login_admin = (req, res) => {
+    //not necessary anymore
     const {email, password} = req.body
     if(email && password) {
         Auth.find({email}).exec()

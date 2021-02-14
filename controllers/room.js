@@ -49,7 +49,6 @@ exports.room_by_id = (req, res) => {
         })
 }
 
-//TODO Add controller to list rooms of a hotel
 
 // @Purpose = Creating Room
 // @Previlage = *
@@ -62,7 +61,6 @@ exports.create_room = (req, res) => {
 
     const {features, numberOfBedrooms, description, count, pricePerNight} = req.body
 
-    //TODO add rooms of features
     if(numberOfBedrooms && description && count, pricePerNight) {
             let newRoom = new Room({
                 _id : new mongoose.Types.ObjectId(),

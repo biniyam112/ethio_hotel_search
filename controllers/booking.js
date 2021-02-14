@@ -9,7 +9,6 @@ const mongoose = require('mongoose')
 // @ Faillure Status code = 404
 // @Request = GET
 exports.bookings_all = (req, res) => {
-    //TODO get the hotel id from the jwt
     //DONT RETURN ALL THE BOOKINGS FOR EVERYBODY IT MUST BE AUTHENTICATED AND AUTHORIZED
     Booking.find().populate('room')
         .exec()
@@ -59,13 +58,15 @@ exports.booking_by_id = (req, res) => {
 // @ Faillure Status code = 400
 // @Request = POST
 exports.create_booking = (req, res) => {
+    //TDOD get hotel from jwt
     //TODO ADD CHECKIN AND CHECKOUT DATEs AS USER INPUT FROM USER PROVIDED FORM
-    const {room, phoneNumber, checkInDate, checkOutDate} = req.body
-    if(room && phoneNumber) {
+    const {room, phoneNumber, checkInDate, checkOutDate, hotel} = req.body
+    if(room && phoneNumber && hotel) {
         let newBooking = new Booking({
             _id : new mongoose.Types.ObjectId(),
             room,
-            phoneNumber
+            phoneNumber,
+            hotel
         })
         newBooking.save().then(() => {
             res.status(201).json({message:'Booking Saved!',booking : newBooking, error : false})
@@ -74,7 +75,7 @@ exports.create_booking = (req, res) => {
         })
     }
     else {
-        res.status(400).json({error : true, message : 'room_id, phoneNumber, checkInDate and checkOutDate Should Be Provided!'})
+        res.status(400).json({error : true, message : 'room, phoneNumber, checkInDate, checkOutDate and hotel Should Be Provided!'})
     }
 }
 
@@ -102,4 +103,25 @@ exports.delete_book = (req, res) => {
     }
 }
 
-//TODO add route for get_bookings_hotel_id
+// @Purpose = Get Bookings of a single hotel
+// @Previlage = Hotels ? maybe not
+// @Required fields =  hotel_id
+// @Optional params = No
+// @ Success status code = 200
+// @ Faillure Status code = 404
+// @Request = GET
+exports.get_bookings_by_hotel_id = (req, res) => {
+    let id = req.params.hotel_id
+    Booking.find({hotel : id}).populate('room').
+        exec().
+        then(bookings => {
+            if (bookings) {
+                res.status(200).json({error : false,bookings})
+            } else {
+                res.status(404).json({error :true, message : 'No Booking Found For this hotel.'})
+            }
+        }).
+        catch(err => {
+            res.status(404).json({error : true, message : 'No Booking Found for this hotel.'})
+        })
+}

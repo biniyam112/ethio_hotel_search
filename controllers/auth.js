@@ -26,7 +26,8 @@ exports.login_user = (req, res) => {
                             let token = jwt.sign({
                                 id : users[0]._id,
                                 email : users[0].email, 
-                                type : users[0].type
+                                type : users[0].type,
+                                //if it is HotelAdmin add the hotel information in the json web token information
                             }, 'PLEASE_CHANGE_IT_LATER')
                             res.status(200).json({error : false, success : true, info : {id : users[0]._id, email : users[0].email, type : users[0].type}, token})
                         }

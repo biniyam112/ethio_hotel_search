@@ -20,5 +20,14 @@ const authSchema = new mongoose.Schema({
         required : true
     }
 })
+// authSchema.virtual("hotel", {
+//     ref: "Hotel",
+//     localField: "_id",
+//     foreignField: "adminId",
+//   });
+  
+//   authSchema.set("toObject", { virtuals: true });
+//   authSchema.set("toJSON", { virtuals: true });
+//TODO after betse and add the hotel information in the json web token
 
 const Auth = module.exports = mongoose.model('Auth', authSchema)

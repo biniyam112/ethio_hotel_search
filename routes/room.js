@@ -8,7 +8,7 @@ router.get('/filter', roomController.filter_rooms)
 router.get('/:room_id',roomController.room_by_id)
 
 //List rooms of a specific Hotel
-router.post('/', roomController.create_room)
-router.delete('/:room_id', roomController.delete_room)
+router.post('/', roomController.create_room) ////Use hotelLoggedInMiddleware
+router.delete('/:room_id', roomController.delete_room) //Use hotelLoggedInMiddleware
 
 module.exports = router

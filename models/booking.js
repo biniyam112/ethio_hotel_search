@@ -10,6 +10,7 @@ const bookSchema = new mongoose.Schema({
         ref : 'Room',
         required : true
     },
+    
     phoneNumber :{
         type : String,
         required : true,
@@ -24,12 +25,11 @@ const bookSchema = new mongoose.Schema({
         type : Date,
         default : Date.now()
     },
-    // hotel : {
-        //type : mongoose.Schema.Types.ObjectId,
-        //required : true,
-        //ref : 'Hotel'
-    // },
-    //AFTER BETSE  I WILL ADD THE FIELD AS REFERENCE WE WILL USE IT TO SELECT 
+    hotel: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+      },
+
 })
 
 const Booking = module.exports = mongoose.model('Booking', bookSchema)
