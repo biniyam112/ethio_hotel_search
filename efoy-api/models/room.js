@@ -6,6 +6,12 @@ const roomsSchema = new mongoose.Schema({
         require : true
     },
     features : [{type : mongoose.Schema.Types.ObjectId, ref : 'Feature'}],
+    ratings : {
+        type : Number,
+        min : 0,
+        max : 5,
+        default : 3.5
+    },
     status : {
         type : Boolean,
         default : false
