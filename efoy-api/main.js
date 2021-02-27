@@ -13,6 +13,7 @@ app.use(
 );
 
 app.use(bodyParser.json());
+
 mongooseConnection();
 app.use(express.static(__dirname));
 // app.use(express.multipart());

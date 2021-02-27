@@ -38,7 +38,7 @@ const HotelSchema = new Schema(
 );
 
 HotelSchema.virtual("rooms", {
-  ref: "Rooms",
+  ref: "Room",
   localField: "_id",
   foreignField: "hotel",
 });

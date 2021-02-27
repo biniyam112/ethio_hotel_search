@@ -1,8 +1,13 @@
 const { Hotel } = require("../models/models");
 const path = require("path");
+const Auth = require('../models/auth')
+const mongoose = require('mongoose')
+const bcrypt = require('bcrypt')
+const AuthTypes = require('../utils/auth_types')
+
 module.exports = {
   create_hotel: (req, res) => {
-    const { name, location, stars, description ,adminId} = req.body;
+    const { name, location, stars, description, email, password} = req.body;
     if (req.fileValidationError) {
       res.status(500).json({
         error: true,
@@ -15,10 +20,31 @@ module.exports = {
         success: false,
         message: "error on uploading images",
       });
-    } else if (name && location && stars && description &&adminId) {
+    } else if (name && location && stars && description) {
       console.log(req.files);
       var images = req.files;
-      Hotel.create({ name, location, stars, description,adminId })
+
+      let newId = new mongoose.Types.ObjectId()
+      let newAuth = new Auth({_id : newId, email, password, type : "HOTEL"})
+
+      // newAuth.email = email
+      // newAuth.password = password
+      // newAuth.type = "HOTEL"
+
+      bcrypt.hash(password,10,(err, hashed) => {
+        if(err) {
+            res.status(500).json({error : true, message : 'Internal server error endountered'})
+        }
+        else {
+            let newAuth = new Auth({
+                _id : new mongoose.Types.ObjectId(),
+                email,
+                password : hashed,
+                type : AuthTypes.HOTEL
+            })
+            newAuth.save().then(() => {
+                newAuth.save().then(() => {
+        Hotel.create({ name, location, stars, description,adminId : newId })
         .then((hotel) => {
           if (hotel) {
             images.forEach((image) => {
@@ -39,6 +65,20 @@ module.exports = {
             .status(500)
             .json({ error: true, mesage: "error on creating hotel " });
         });
+      }).catch(err => {
+        console.log(err);
+        res.status(400).json({
+          error: true,
+          mesage: "Error Creating Hotel information",
+        });
+      })
+            })
+        }
+    })
+
+      
+
+      
     } else {
       res.status(400).json({
         error: true,
@@ -47,7 +87,8 @@ module.exports = {
     }
   },
   find_all_hotels: (req, res) => {
-    Hotel.find().then((hotels) => {
+    
+    Hotel.find().populate('rooms events bookings').then((hotels) => {
       if (hotels) {
         res.status(200).json({
           error: false,
@@ -69,7 +110,7 @@ module.exports = {
 
     if (hotelId) {
       Hotel.findById(hotelId)
-        .populate({ path: "events" })
+        .populate('rooms bookings events')
         .then((hotel) => {
           if (hotel) {
             res.status(200).json({ error: false, success: true, data: hotel });

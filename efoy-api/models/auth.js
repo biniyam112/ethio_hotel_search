@@ -21,7 +21,7 @@ const authSchema = new mongoose.Schema({
     }
 })
 authSchema.virtual("hotel", {
-    ref: "Hotel",
+    ref: "Hotels",
     localField: "_id",
     foreignField: "adminId",
   });

@@ -1,5 +1,7 @@
 const Booking = require('../models/booking')
 const mongoose = require('mongoose')
+const jwt = require('jsonwebtoken')
+const AuthTypes = require('../utils/auth_types')
 
 // @Purpose = List all Features
 // @Previlage = No previladge
@@ -9,22 +11,44 @@ const mongoose = require('mongoose')
 // @ Faillure Status code = 404
 // @Request = GET
 exports.bookings_all = (req, res) => {
+
+    const authHeader = req.headers['authorization'];
+	const authToken = authHeader && authHeader.split(' ')[1];
+
+    if(authToken) {
+        jwt.verify(authToken, 'PLEASE_CHANGE_IT_LATER', (err, decode) => {
+			if (err) {
+				res.status(401).json({ error: true, message: 'Unauthorized Personnel!' });
+			} else {
+				if (decode.type === AuthTypes.HOTEL) {
+					let hotelId = decode.hotel;
+					Booking.find({ hotel: hotelId })
+						.populate('room')
+						.exec()
+						.then((result) => {
+							res.status(200).json({
+								error: false,
+								count: result.length,
+								bookings: result,
+							});
+						})
+						.catch((err) => {
+							res.status(500).json({
+								error: true,
+								message: 'Some internal server error',
+							});
+						});
+				} else {
+					res.status(401).json({ error: true, message: 'Unauthorized Personnel!' });
+				}
+			}
+		});
+    }
+    else{
+        res.status(401).json({ error: true, message: 'Unauthorized Personnel!' });
+    }
     //DONT RETURN ALL THE BOOKINGS FOR EVERYBODY IT MUST BE AUTHENTICATED AND AUTHORIZED
-    Booking.find().populate('room')
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                error : false,
-                count : result.length,
-                bookings : result
-            })
-        }).
-        catch(err => {
-            res.status(500).json({
-                error : true,
-                message : 'Some internal server error'
-            })
-        })
+    
 }
 
 // @Purpose = Get single Booking using id
@@ -58,7 +82,7 @@ exports.booking_by_id = (req, res) => {
 // @ Faillure Status code = 400
 // @Request = POST
 exports.create_booking = (req, res) => {
-    //TDOD get hotel from jwt
+    //TDOD hotel will be send as parameter from user input/selection
     //TODO ADD CHECKIN AND CHECKOUT DATEs AS USER INPUT FROM USER PROVIDED FORM
     const {room, phoneNumber, checkInDate, checkOutDate, hotel} = req.body
     if(room && phoneNumber && hotel) {

@@ -13,17 +13,18 @@ const AuthTypes = require('../utils/auth_types')
 // @ Faillure Status code = 404
 // @Request = GET
 exports.admins_all = (req, res) => {
-    Auth.find()
+    Auth.find().populate('hotel')
         .exec()
         .then(result => {
-            let admins = result.filter(item => item.type === AuthTypes.ADMIN)
+            // let admins = result.filter(item => item.type === AuthTypes.ADMIN)
             res.status(200).json({
                 error : false,
-                count : admins.length,
-                admins : admins
+                count : result.length,
+                admins : result
             })
         }).
         catch(err => {
+            console.log(err);
             res.status(500).json({
                 error : true,
                 message : 'Some internal server error'
