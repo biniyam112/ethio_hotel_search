@@ -9,10 +9,10 @@ router.get('/:booking_id', bookingController.booking_by_id)
 
 router.get('/hotel/:hotel_id', bookingController.get_bookings_by_hotel_id) //Use hotelLoggedInMiddleware
 
+router.get('/user/:phone_number', bookingController.get_bookings_by_phone_number)
+
 router.post('/', bookingController.create_booking) //user uploads bookings
 
 router.delete('/:booking_id', bookingController.delete_book) ////Use hotelLoggedInMiddleware
-
-
 
 module.exports = router

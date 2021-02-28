@@ -149,3 +149,26 @@ exports.get_bookings_by_hotel_id = (req, res) => {
             res.status(404).json({error : true, message : 'No Booking Found for this hotel.'})
         })
 }
+
+// @Purpose = Get Bookings by phone number
+// @Previlage = Hotel previldge
+// @Required fields =  phoneNumber
+// @Optional params = No
+// @ Success status code = 200
+// @ Faillure Status code = 404
+// @Request = GET
+exports.get_bookings_by_phone_number = (req, res) => {
+    let phoneNumber = req.params.phoneNumber
+    Booking.find({phoneNumber}).populate('room').
+        exec().
+        then(bookings => {
+            if (bookings) {
+                res.status(200).json({error : false,bookings})
+            } else {
+                res.status(404).json({error :true, message : 'No Booking Found For this phone number.'})
+            }
+        }).
+        catch(err => {
+            res.status(404).json({error : true, message : 'No Booking Found for this phone number.'})
+        })
+}
