@@ -1,0 +1,18 @@
+import 'package:flutter/material.dart';
+import 'package:hotels/components/coustom_bottom_nav_bar.dart';
+import 'package:hotels/enums.dart';
+
+import '../../constants.dart';
+import 'components/body.dart';
+
+class HomeScreen extends StatelessWidget {
+  static String routeName = "/home";
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Body(),
+      // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.home),
+      // bottomNavigationBar: BottomNavigationBar(items: [BottomNavigationBarItem(icon: Icon(Icons.home_outlined,color: kPrimaryColor,),)],),
+    );
+  }
+}
