@@ -49,22 +49,23 @@ exports.rooms_all = (req, res) => {
 };
 
 exports.rooms_all_2nd = (req, res) => {
-    Room.find().populate('features')
-        .exec()
-        .then(result => {
-            res.status(200).json({
-                error : false,
-                count : result.length,
-                rooms : result
-            })
-        }).
-        catch(err => {
-            res.status(500).json({
-                error : true,
-                message : 'Some internal server error'
-            })
-        })
-}
+	Room.find()
+		.populate('features')
+		.exec()
+		.then((result) => {
+			res.status(200).json({
+				error: false,
+				count: result.length,
+				rooms: result,
+			});
+		})
+		.catch((err) => {
+			res.status(500).json({
+				error: true,
+				message: 'Some internal server error',
+			});
+		});
+};
 
 // @Purpose = Get single Room by ID
 // @Previlage = *
@@ -109,16 +110,16 @@ exports.create_room = (req, res) => {
 				if (decode.type === AuthTypes.HOTEL) {
 					let hotelId = decode.hotel;
 					const { features, numberOfBedrooms, description, count, pricePerNight } = req.body;
-                    console.log(decode)
+					console.log(decode);
 
-					if ((numberOfBedrooms && description && count && pricePerNight)) {
+					if (numberOfBedrooms && description && count && pricePerNight) {
 						let newRoom = new Room({
 							_id: new mongoose.Types.ObjectId(),
 							numberOfBedrooms,
 							count,
 							description,
 							pricePerNight,
-							hotel : hotelId
+							hotel: hotelId,
 						});
 						if (features && features.length > 0) {
 							newRoom.features = features;
@@ -135,7 +136,7 @@ exports.create_room = (req, res) => {
 								});
 							})
 							.catch((err) => {
-                                console.log(err)
+								console.log(err);
 								res.status(400).json({
 									error: true,
 									message:
@@ -189,18 +190,17 @@ exports.filter_rooms = (req, res) => {
 		.populate('features')
 		.exec()
 		.then((rooms) => {
-			const filteredRoom = rooms.filter(room => {				
+			const filteredRoom = rooms.filter((room) => {
 				return room.pricePerNight <= upto;
-			})
+			});
 
-			res.status(200).json({ error: false, count: filteredRoom.length, room : filteredRoom });
+			res.status(200).json({ error: false, count: filteredRoom.length, room: filteredRoom });
 			// console.log(filteredRoom)
 		})
 		.catch((err) => {
 			console.log(err);
 			res.status(400).json({ error: true, message: 'The price value is inappropriate.' });
 		});
-
 };
 
 // @Purpose = Handling error
@@ -213,4 +213,38 @@ exports.error_handler = (req, res) => {
 	res.status(404).json({
 		error: 'Page Not Found!',
 	});
+};
+
+exports.update_room = (req, res) => {
+
+	let room_id = req.params.room_id
+
+	let {numberOfBedrooms, description, count, pricePerNight} = req.body
+
+	if (numberOfBedrooms && description && count && pricePerNight) {
+		Room.findById(room_id)
+			.exec()
+			.then((room) => {
+				if (room) {					
+					room.numberOfBedrooms = numberOfBedrooms;
+					room.pricePerNight = pricePerNight;
+					room.conunt = count;
+					room.description = description;
+					
+					room.save().then(() => {
+						res.status(200).json({message:'Updated!',error : false, success : true})
+					})
+				}
+			}).catch(err => {
+				res.status(400).json({
+					error: true,
+					message: 'Error updating room.',
+				});
+			});
+	} else {
+		res.status(400).json({
+			error: true,
+			message: 'numberOfBedrooms price per night, Description and Room counts are required',
+		});
+	}
 };
