@@ -158,7 +158,7 @@ exports.get_bookings_by_hotel_id = (req, res) => {
 // @ Faillure Status code = 404
 // @Request = GET
 exports.get_bookings_by_phone_number = (req, res) => {
-    let phoneNumber = req.params.phoneNumber
+    let phoneNumber = req.params.phone_number
     Booking.find({phoneNumber}).populate('room').
         exec().
         then(bookings => {
