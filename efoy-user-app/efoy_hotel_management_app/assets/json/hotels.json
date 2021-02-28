@@ -1,0 +1,113 @@
+{
+    "hotels": [{
+            "name": "Hilton",
+            "location": "piassa",
+            "rating": "4.5",
+            "description": "hiltom is the best",
+            "imagePath": "assets/images/hotel_2.jpg",
+            "rooms": [{
+                "name": "single mingle",
+                "bedcount": "2",
+                "price": "120",
+                "imagePath": "assets/images/bed_room_4.jpg",
+                "services": [
+                    "wifi", "hot shower", "TV"
+                ],
+                "description": "this room has lots of bingle bangles"
+            }, {
+                "name": "single mingle",
+                "bedcount": "2",
+                "price": "120",
+                "imagePath": "assets/images/bed_room_4.jpg",
+                "services": [
+                    "wifi", "hot shower", "TV"
+                ],
+                "description": "this room has lots of bingle bangles"
+            }]
+
+        },
+        {
+            "name": "Sheraton",
+            "location": "jemo",
+            "rating": "2.6",
+            "description": "this is the description",
+            "imagePath": "assets/images/hotel_3.jpg",
+            "rooms": [{
+                "name": "single mingle",
+                "bedcount": "2",
+                "price": "120",
+                "imagePath": "assets/images/bed_room_4.jpg",
+
+                "services": [
+                    "wifi", "hot shower", "TV"
+                ],
+                "description": "this room has lots of bingle bangles"
+            }, {
+                "name": "single mingle",
+                "bedcount": "2",
+                "price": "120",
+                "imagePath": "assets/images/bed_room_4.jpg",
+
+                "services": [
+                    "wifi", "hot shower", "TV"
+                ],
+                "description": "this room has lots of bingle bangles"
+            }]
+        },
+
+        {
+            "name": "Sheraton",
+            "location": "4 killo",
+            "rating": "4.9",
+            "description": "not bad",
+            "imagePath": "assets/images/hotel_1.jpg",
+            "rooms": [{
+                "name": "anti dtf ",
+                "bedcount": "1",
+                "price": "2120",
+                "imagePath": "assets/images/bed_room_4.jpg",
+                "services": [
+                    "wifi", "hot shower", "TV", "room service"
+                ],
+                "description": "this hotel loves people"
+            }, {
+                "name": "no banger",
+                "bedcount": "1",
+                "price": "11210",
+                "imagePath": "assets/images/bed_room_3.jpg",
+                "services": [
+                    "wifi", "hot shower", "TV"
+                ],
+                "description": "you want bang bang go somewhere else"
+            }]
+        },
+        {
+            "name": "Afransis",
+            "location": "lafto",
+            "rating": "4.6",
+            "description": "this is the description",
+            "imagePath": "assets/images/hotel_4.jpg",
+            "rooms": [{
+                "name": "anti dtf ",
+                "bedcount": "1",
+                "price": "2120",
+                "imagePath": "assets/images/bed_room_1.jpg",
+
+                "services": [
+                    "wifi", "hot shower", "TV", "room service"
+                ],
+                "description": "this hotel loves people"
+            }, {
+                "name": "no banger",
+                "bedcount": "1",
+                "price": "11210",
+                "imagePath": "assets/images/bed_room_2.jpg",
+
+                "services": [
+                    "wifi", "hot shower", "TV"
+                ],
+                "description": "you want bang bang go somewhere else"
+            }]
+        }
+    ]
+}

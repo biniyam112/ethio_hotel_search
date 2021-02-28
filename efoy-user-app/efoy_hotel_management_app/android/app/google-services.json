@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "709007778446",
+    "project_id": "efoy-cf91e",
+    "storage_bucket": "efoy-cf91e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:709007778446:android:77f4470f4dcaeed2719fdf",
+        "android_client_info": {
+          "package_name": "bininyam.developer.com.efoy_hotel_management_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "709007778446-00ho2m83vnkfvri2pid09aegfhvto53s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bininyam.developer.com.efoy_hotel_management_app",
+            "certificate_hash": "77078bd3565f06a2d36c893eaf18ffc07ac69835"
+          }
+        },
+        {
+          "client_id": "709007778446-am4mieei74lflrico37klqfti93gpp7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5r6jShSDSr3u4OPShs8nrajuUtF9vWwA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "709007778446-am4mieei74lflrico37klqfti93gpp7l.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
